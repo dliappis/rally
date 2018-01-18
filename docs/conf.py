@@ -93,6 +93,15 @@ if not on_rtd:  # only import and set the theme if we're building docs locally
     html_theme = 'sphinx_rtd_theme'
     html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
+# explicitly define
+html_context = {
+    "display_github": True,
+    "github_user": "elastic",
+    "github_repo": "rally",
+    "github_version": "master",
+    "conf_py_path": "/docs/"
+}
+
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
 #html_title = None
