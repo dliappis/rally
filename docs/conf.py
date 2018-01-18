@@ -102,6 +102,14 @@ html_context = {
     "conf_py_path": "/docs/"
 }
 
+html_theme_options = {
+    "display_github": True,
+    "github_user": "elastic",
+    "github_repo": "rally",
+    "github_version": "master",
+    "conf_py_path": "/docs/"
+}
+
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
 #html_title = None
