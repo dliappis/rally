@@ -41,6 +41,8 @@
             {% if check_meta and 'github_url' in meta %}
             <!-- User defined GitHub URL -->
             <a href="{{ meta['github_url'] }}" class="fa fa-github"> {{ _('Edit on GitHub') }}</a>
+            {% elif 'version_slug' in meta and meta['version_slug'] == 'stable' %}
+            <a href="https://{{ github_host|default("github.com") }}/{{ github_user }}/{{ github_repo }}/blob/{{ commit }}{{ conf_py_path }}{{ pagename }}{{ suffix }}" class="fa fa-github"> {{ _('Custom Edit on GitHub for Stable') }}</a>
             {% else %}
             <a href="https://{{ github_host|default("github.com") }}/{{ github_user }}/{{ github_repo }}/blob/{{ github_version }}{{ conf_py_path }}{{ pagename }}{{ suffix }}" class="fa fa-github"> {{ _('Custom Edit on GitHub') }}</a>
             {% endif %}
