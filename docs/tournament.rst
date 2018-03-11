@@ -9,7 +9,7 @@ First, we need a baseline measurement. For example::
 
 Above we run the baseline measurement based on the latest source code revision of Elasticsearch. We can use the command line parameter ``--user-tag`` to provide a key-value pair to document the intent of a race.
 
-Then we implement our changes and finally we want to run another benchmark to see the performance impact of the change. In that case, we do not want Rally to change our source tree and thus specify the pseudo-revision ``current``::
+Then we implement our changes and finally we want to run another benchmark to see the performance impact of the change. In this case, we do not want Rally to change our source tree and thus specify the pseudo-revision ``current``::
 
     esrally --track=pmc --revision=current --user-tag="intention:reduce_alloc_1234"
 
@@ -108,4 +108,3 @@ We can see that the user tag helps us to recognize races. We want to compare the
                            Nodes Stats(90.0 percentile) [ms]     3.19611      3.15251    -0.04360
                            Nodes Stats(99.0 percentile) [ms]     4.44111      4.87003    +0.42892
                           Nodes Stats(100.0 percentile) [ms]     5.22527      5.66977    +0.44450
-

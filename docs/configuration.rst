@@ -138,7 +138,7 @@ Rally downloads all necessary data automatically for you:
 * Track meta-data from Github
 * Track data from an S3 bucket
 
-Hence, it needs to connect via http(s) to the outside world. If you are behind a corporate proxy you need to configure Rally and git. As many other Unix programs, Rally relies that the HTTP proxy URL is available in the environment variable ``http_proxy`` (note that this is in lower-case). Hence, you should add this line to your shell profile, e.g. ``~/.bash_profile``::
+Hence, it needs to connect via http(s) to the outside world. If you are behind a corporate proxy you need to configure Rally and git. As with many other Unix programs, Rally relies on the HTTP proxy URL being available in the environment variable ``http_proxy`` (note that this is in lower-case). Hence, you should add this line to your shell profile, e.g. ``~/.bash_profile``::
 
     export http_proxy=http://proxy.acme.org:8888/
 
