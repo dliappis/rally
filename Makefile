@@ -1,5 +1,23 @@
 # We assume an active virtualenv for development
-install:
+include requirements.txt
+VENV_NAME ?= .venv
+VENV_ACTIVATE_FILE = $(VENV_NAME)/bin/activate
+VENV_ACTIVATE = . $(VENV_ACTIVATE_FILE)
+prereq: requirements.txt
+	pyenv install $(PY34)
+	pyenv install $(PY35)
+	pyenv install $(PY36)
+	pyenv install $(PY37)
+	pyenv global system $(PY34) $(PY35) $(PY36) $(PY37)
+	-@printf "\033[0;31mIMPORTANT\033[0m: please add \033[0;31meval \"\$$"
+	-@printf "(pyenv init -)\"\033[0m to your bash profile and restart your terminal before proceeding any further.\n"
+
+venv-create:
+	-@if [ ! -f $(VENV_ACTIVATE_FILE) ]; then python3 -mvenv ${VENV_NAME}; fi;	
+venv:
+	-@$(VENV_ACTIVATE)
+
+install: venv-create venv
 	-@python3 setup.py -q develop --upgrade
 	# also install development dependencies
 	# workaround for https://github.com/elastic/rally/issues/439
@@ -18,39 +36,39 @@ python-caches-clean:
 	-@find . -name "__pycache__" -exec rm -rf -- \{\} \;
 	-@find . -name ".pyc" -exec rm -rf -- \{\} \;
 
-docs:
+docs: venv
 	cd docs && $(MAKE) html
 
-test:
+test: venv
 	python3 setup.py test
 
-it: python-caches-clean
+it: venv python-caches-clean
 	tox
 
-it34: python-caches-clean
+it34: venv python-caches-clean
 	tox -e py34
 
-it35: python-caches-clean
+it35: venv python-caches-clean
 	tox -e py35
 
-it36: python-caches-clean
+it36: venv python-caches-clean
 	tox -e py36
 
-it37: python-caches-clean
+it37: venv python-caches-clean
 	tox -e py37
 
-benchmark:
+benchmark: venv
 	python3 setup.py pytest --addopts="-s benchmarks"
 
-coverage:
+coverage: venv
 	coverage run setup.py test
 	coverage html
 
-release-checks:
+release-checks: venv
 	./release-checks.sh $(release_version) $(next_version)
 
 # usage: e.g. make release release_version=0.9.2 next_version=0.9.3
-release: release-checks clean docs it
+release: venv release-checks clean docs it
 	./release.sh $(release_version) $(next_version)
 
 docker-it: nondocs-clean python-caches-clean
